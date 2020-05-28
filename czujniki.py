@@ -24,7 +24,7 @@ domoticzpassword = ""
 domoticzdelay = 0
 domoticzenable = "true"
 
-
+Czujniki = list()
 
 class Sensor_():
     def __init__(self):
