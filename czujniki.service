@@ -1,0 +1,11 @@
+[Unit] 
+Description=Czujniczki
+
+[Service]
+ExecStart=python3 /usr/local/src/Czujniki/czujniki.py
+
+[Install]
+WantedBy=multi-user.target
+
+
+

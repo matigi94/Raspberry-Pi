@@ -2,10 +2,14 @@ from lywsd02 import Lywsd02Client
 import urllib.request
 # ~ import base64
 import time
+import os, sys
 
 import xml.etree.ElementTree as ET
 from mijia.mijia_poller import MijiaPoller, \
     MI_HUMIDITY, MI_TEMPERATURE, MI_BATTERY
+pathname = os.path.dirname(sys.argv[0])        
+
+filepath =os.path.abspath(pathname)
 
 # ~ mac = 'A4:C1:38:25:67:59' #salon
 # ~ mac2 = 'A4:C1:38:fd:0e:0a' #lazienka
@@ -24,7 +28,7 @@ domoticzpassword = ""
 domoticzdelay = 0
 domoticzenable = "true"
 
-Czujniki = list()
+
 
 class Sensor_():
     def __init__(self):
@@ -46,7 +50,7 @@ def Read_config():
     global tree
     global root
     global Czujniki
-    tree = ET.parse('czujniki.xml')
+    tree = ET.parse(filepath+'/czujniki.xml')
     root = tree.getroot()
 
     for Czujnik_EL in root.iterfind("config"):
@@ -65,7 +69,7 @@ def Read_Sensors():
     global tree
     global root
     global Czujniki
-    tree = ET.parse('czujniki.xml')
+    tree = ET.parse(filepath+'/czujniki.xml')
     root = tree.getroot()
 
     cnt =0
@@ -161,10 +165,13 @@ def update(address,idx_temp):
 
 
 
+
+
 try:
     Read_config()
     Read_Sensors()
 except:
+    print("No config file")
     raise SystemExit
 print("Domoticz adres: " +domoticzserver+":"+domoticzport+"\t")
 
